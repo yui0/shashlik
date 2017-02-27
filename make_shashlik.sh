@@ -19,7 +19,7 @@ cp -a ${cdir}/shashlik-install ./opt/shashlik/bin
 
 # diet
 e2fsck -f ./opt/shashlik/android/userdata.img
-resize2fs ./opt/shashlik/android/userdata.img 4M
+resize2fs ./opt/shashlik/android/userdata.img 11M
 e2fsck -f ./opt/shashlik/android/system.img
 resize2fs ./opt/shashlik/android/system.img 420M
 
