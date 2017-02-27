@@ -1,0 +1,109 @@
+#!/usr/bin/env python3
+
+import sys
+import os
+import subprocess
+import re
+import argparse
+import shutil
+import zipfile
+import tempfile
+from constants import SHASHLIK_INSTALL_DIR
+
+parser = argparse.ArgumentParser()
+parser.add_argument("apk", help="the APK to install")
+args = parser.parse_args()
+apk_path = args.apk
+
+def message(msg):
+    print (msg)
+    subprocess.call(args=["Xdialog",
+                         "--title", "Shashlik",
+                         "--msgbox", msg, "0", "0"])
+    sys.exit(msg)
+
+try:
+    aapt_output = subprocess.check_output(args=["/opt/shashlik/bin/aapt",
+                                    "dump",
+                                    "badging",
+                                    apk_path],
+                                universal_newlines=True)
+except:
+    message("Could not get APK info. Broken setup?")
+
+apk_info = {}
+
+#some lines are formatted as adsf:'awere'
+#others are formatted as asdf: foo='awerwe' zzz='asdfwer'
+
+#this script doesn't really work as user-permission comes up mulitple times, but it'll do for the bits we want
+
+for line in aapt_output.split('\n'):
+    if (not ':' in line):
+        continue
+
+    [key,value] = line.split(':', 1)
+    apk_info[key] = value
+
+r = re.compile(r"name='([^']*)'")
+m = r.search(apk_info["package"])
+if not m:
+    message("Could not extract package name")
+package_name = m.group(1)
+app_name = apk_info["application-label-uk"].strip("'")
+
+icon_path=""
+for size in [640, 480, 320, 240, 213, 160, 120]:
+    entry = "application-icon-" + str(size)
+    if entry in apk_info:
+        icon_path = apk_info[entry].strip("'")
+        break
+
+if "native-code" in apk_info and not "x86" in apk_info["native-code"]:
+    message("This package does not contain x86 native code, and can't run. Please find another APK built for x86")
+
+shashlik_dir = os.path.expanduser("~/.local/share/shashlik/")
+
+try:
+    os.mkdir(shashlik_dir)
+except:
+    pass
+
+
+#copy APK for pending installation when we first run it
+shutil.copyfile(apk_path, shashlik_dir + package_name + ".apk")
+
+#write desktop file into a temp location
+desktop_file = tempfile.NamedTemporaryFile(delete=False, suffix=".desktop", prefix="shashlik-")
+desktop_file.write(b"[Desktop Entry]\n")
+desktop_file.write(str.encode("Name=%s\n" % app_name))
+desktop_file.write(str.encode("Icon=%s/%s.png\n" % (shashlik_dir , package_name)))
+desktop_file.write(str.encode("Exec=/opt/shashlik/bin/shashlik-run %s \"%s\"\n" % (package_name, app_name)))
+desktop_file.write(b"Terminal=false\n")
+desktop_file.write(b"Type=Application\n")
+desktop_file.write(b"Encoding=UTF-8\n")
+
+#extract icon
+if icon_path:
+    apk_zip = zipfile.ZipFile(apk_path)
+    icon_in = apk_zip.open(icon_path, "r")
+    icon_out = open(shashlik_dir + package_name + ".png", "wb")
+    icon_out.write(icon_in.read())
+
+desktop_file.close()
+
+#install desktop icon. xdg-desktop-menu is better than copying the file when dealing with categories
+subprocess.call(["xdg-desktop-menu", "install", "/opt/shashlik/data/shashlik-apps.directory", desktop_file.name], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+#Debian KDE Workaround for their frameworks "patches"
+#See https://git.reviewboard.kde.org/r/127029/
+#Remove after KDE Frameworks 5.20
+try:
+    os.symlink(BaseDirectory.xdg_config_home + "/menus/applications-merged", BaseDirectory.xdg_config_home  + "/menus/kf5-applications-merged")
+except:
+    pass
+
+os.unlink(desktop_file.name)
+
+
+message ("Successfully installed %s" % app_name)
