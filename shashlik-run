@@ -86,18 +86,20 @@ def start_emulator():
 
     emulator_args = [
             "/opt/shashlik/bin/emulator64-x86",
-            "-sysdir", "%s" % images_path ,
-            "-system","%s/system.img" % images_path ,
-            "-ramdisk", "%s/ramdisk.img" % images_path ,
-            "-kernel", "%s/kernel-qemu" % images_path ,
+            "-sysdir", "%s" % images_path,
+            "-system","%s/system.img" % images_path,
+            "-ramdisk", "%s/ramdisk.img" % images_path,
+            "-kernel", "%s/kernel-qemu" % images_path,
             "-memory", "512",
             "-data", "%s/userdata.img" % shashlik_dir,
             "-datadir", "%s/system" % shashlik_dir,
-            #"-noskin",
-            "-skin 480x320",
+            "-noskin",
+            #"-skin 480x320",
             "-gpu", "on",
-            "-selinux", "disabled"]
+            "-selinux", "disabled",
+            "-qemu", "-append", "ro.product.cpu.abi2=armeabi-v7a"]
 
+    #print(emulator_args);
     emulator_env = os.environ
     emulator_env["LD_LIBRARY_PATH"] = lib_path + ":" + os.getenv("LD_LIBRARY_PATH","/lib")
     emulator_env["PATH"] = "/opt/shashlik/bin" + ":" + os.getenv("PATH", "/usr/bin:/bin")
@@ -193,5 +195,4 @@ if emulator_process.returncode == None:
     emulator_process.wait()
 
 httpd.shutdown()
-
 

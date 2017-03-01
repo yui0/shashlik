@@ -16,7 +16,7 @@ args = parser.parse_args()
 apk_path = args.apk
 
 def message(msg):
-    print (msg)
+    print(msg)
     subprocess.call(args=["Xdialog",
                          "--title", "Shashlik",
                          "--msgbox", msg, "0", "0"])
@@ -60,7 +60,8 @@ for size in [640, 480, 320, 240, 213, 160, 120]:
         break
 
 if "native-code" in apk_info and not "x86" in apk_info["native-code"]:
-    message("This package does not contain x86 native code, and can't run. Please find another APK built for x86")
+    #message("This package does not contain x86 native code, and can't run. Please find another APK built for x86")
+    print("This package does not contain x86 native code, and run with houdini.")
 
 shashlik_dir = os.path.expanduser("~/.local/share/shashlik/")
 
@@ -105,5 +106,5 @@ except:
 
 os.unlink(desktop_file.name)
 
+message("Successfully installed %s" % app_name)
 
-message ("Successfully installed %s" % app_name)

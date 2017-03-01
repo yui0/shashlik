@@ -5,6 +5,7 @@ ver=0.9.3
 tdir=/tmp/shashlik
 cdir=`pwd`
 [ -r shashlik_${ver}.deb ] || wget http://static.davidedmundson.co.uk/shashlik/shashlik_${ver}.deb
+[ -r ARM*.zip ] || curl https://onedrive.live.com/download?cid=B17EA188564F33FD&resid=B17EA188564F33FD%213048&authkey=AFPBxDccIE8yqZs
 
 mkdir ${tdir}
 pushd ${tdir}
@@ -15,13 +16,38 @@ cp -a ${cdir}/adb ./opt/shashlik/bin
 cp -a ${cdir}/aapt ./opt/shashlik/bin
 cp -a ${cdir}/lib64 ./opt/shashlik/bin/
 cp -a ${cdir}/shashlik-install ./opt/shashlik/bin
+cp -a ${cdir}/shashlik-run ./opt/shashlik/bin
 #cp -a *.apk ./opt/shashlik/data
+
+# for arm emu
+#unzip -x ${cdir}/ARM_Translation_Marshmallow.zip
+unzip -x ${cdir}/ARM_Translation_Lollipop_20160402.zip
+sdir=/tmp/sys
+mkdir ${sdir}
+mount -oloop ${tdir}/opt/shashlik/android/system.img ${sdir}
+cp -a ./system/* ${sdir}/
+cp -a ${cdir}/build.prop ${sdir}/
+cat ${cdir}/init.sh >> ${sdir}/etc/init.goldfish.sh
+umount ${sdir}
+rmdir ${sdir}
+
+rdir=/tmp/ramdisk
+mkdir ${rdir}
+#mv ${tdir}/opt/shashlik/android/ramdisk.img ${rdir}/ramdisk.gz
+pushd ${rdir}
+zcat ${rdir}/ramdisk.gz | cpio -i
+rm ${rdir}/ramdisk.gz
+cp -a ${cdir}/default.prop ${rdir}/
+#find . | cpio -o -H newc | gzip > ${tdir}/opt/shashlik/android/ramdisk.img
+popd
+rmdir -rf ${rdir}
 
 # diet
 e2fsck -f ./opt/shashlik/android/userdata.img
 resize2fs ./opt/shashlik/android/userdata.img 11M
 e2fsck -f ./opt/shashlik/android/system.img
-resize2fs ./opt/shashlik/android/system.img 420M
+#resize2fs ./opt/shashlik/android/system.img 420M
+resize2fs ./opt/shashlik/android/system.img 500M
 
 rm -rf ./opt/shashlik/bin/__pycache__
 rm -rf ./opt/shashlik/lib
