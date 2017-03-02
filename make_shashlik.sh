@@ -33,14 +33,15 @@ rmdir ${sdir}
 
 rdir=/tmp/ramdisk
 mkdir ${rdir}
-#mv ${tdir}/opt/shashlik/android/ramdisk.img ${rdir}/ramdisk.gz
+mv ${tdir}/opt/shashlik/android/ramdisk.img ${rdir}/ramdisk.gz
 pushd ${rdir}
 zcat ${rdir}/ramdisk.gz | cpio -i
 rm ${rdir}/ramdisk.gz
 cp -a ${cdir}/default.prop ${rdir}/
 #find . | cpio -o -H newc | gzip > ${tdir}/opt/shashlik/android/ramdisk.img
 popd
-rmdir -rf ${rdir}
+${cdir}/mkbootfs ${rdir} | gzip -9 > ${tdir}/opt/shashlik/android/ramdisk.img
+rm -rf ${rdir}
 
 # diet
 e2fsck -f ./opt/shashlik/android/userdata.img
