@@ -15,8 +15,10 @@ tar xvJf data.tar.xz
 cp -a ${cdir}/adb ./opt/shashlik/bin
 cp -a ${cdir}/aapt ./opt/shashlik/bin
 cp -a ${cdir}/lib64 ./opt/shashlik/bin/
+cp -a ${cdir}/mksdcard ./opt/shashlik/bin
 cp -a ${cdir}/shashlik-install ./opt/shashlik/bin
 cp -a ${cdir}/shashlik-run ./opt/shashlik/bin
+cp -a ${cdir}/config.ini ./opt/shashlik/android
 #cp -a *.apk ./opt/shashlik/data
 
 # for arm emu
@@ -44,8 +46,9 @@ ${cdir}/mkbootfs ${rdir} | gzip -9 > ${tdir}/opt/shashlik/android/ramdisk.img
 rm -rf ${rdir}
 
 # diet
-e2fsck -f ./opt/shashlik/android/userdata.img
-resize2fs ./opt/shashlik/android/userdata.img 11M
+#e2fsck -f ./opt/shashlik/android/userdata.img
+#resize2fs ./opt/shashlik/android/userdata.img 11M
+rm ./opt/shashlik/android/userdata.img
 e2fsck -f ./opt/shashlik/android/system.img
 #resize2fs ./opt/shashlik/android/system.img 420M
 resize2fs ./opt/shashlik/android/system.img 500M

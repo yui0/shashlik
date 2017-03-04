@@ -29,6 +29,11 @@ shashlik_dir = os.path.expanduser("~/.local/share/shashlik") # FIXME use the XDG
 
 parser = argparse.ArgumentParser()
 
+if not os.path.isdir(shashlik_dir + "sdcard.img"):
+    cmd = "/opt/shashlik/bin/mksdcard 500M %s/sdcard.img" % (shashlik_dir)
+    subprocess.call( cmd.strip().split(" ") )
+
+
 #icon name is based on the package name in the install process
 parser.add_argument("package_name", help="the name of the package to run")
 
@@ -93,6 +98,7 @@ def start_emulator():
             "-memory", "512",
             "-data", "%s/userdata.img" % shashlik_dir,
             "-datadir", "%s/system" % shashlik_dir,
+            "-sdcard", "%s/sdcard.img" % shashlik_dir,
             "-noskin",
             #"-skin 480x320",
             "-gpu", "on",

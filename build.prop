@@ -22,17 +22,13 @@ ro.product.brand=Android
 ro.product.name=shashlik_x86
 ro.product.device=generic_x86
 ro.product.board=
-# ro.product.cpu.abi and ro.product.cpu.abi2 are obsolete,
-# use ro.product.cpu.abilist instead.
 ro.dalvik.vm.isa.arm=x86
 ro.dalvik.vm.native.bridge=libhoudini.so
+ro.product.cpu.abi=x86
 ro.product.cpu.abilist=x86,armeabi-v7a,armeabi
 ro.product.cpu.abilist32=x86,armeabi-v7a,armeabi
-ro.product.cpu.abi=x86
-#ro.product.cpu.abilist=x86
-#ro.product.cpu.abilist32=x86
 ro.product.cpu.abilist64=
-ro.product.manufacturer=unknown
+ro.product.manufacturer=Berry Inc
 ro.product.locale.language=en
 ro.product.locale.region=US
 ro.wifi.channels=
@@ -44,13 +40,13 @@ ro.build.description=shashlik_x86-userdebug 5.1.1 LMY48X eng.david.20160302.1045
 ro.build.fingerprint=Android/shashlik_x86/generic_x86:5.1.1/LMY48X/david03021048:userdebug/test-keys
 ro.build.characteristics=default
 # end build properties
+
 #
 # from build/target/board/generic_x86/system.prop
 #
 #
 # system.prop for generic sdk
 #
-
 rild.libpath=/system/lib/libreference-ril.so
 rild.libargs=-d /dev/ttyS0
 
