@@ -3,7 +3,7 @@
 Summary: shashlik
 Name: shashlik
 Version: 0.9.3
-Release: b3
+Release: b4
 License: MPL/LGPL
 Group: Applications/System
 Source: %{name}-%{version}.tar.bz2

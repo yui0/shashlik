@@ -29,6 +29,11 @@ mkdir ${sdir}
 mount -oloop ${tdir}/opt/shashlik/android/system.img ${sdir}
 cp -a ./system/* ${sdir}/
 cp -a ${cdir}/build.prop ${sdir}/
+
+cp -a ${cdir}/com.apkpure.aegon ${sdir}/app/
+ln -s /system/app/com.apkpure.aegon/lib/x86/libjlibtorrent.so ${sdir}/lib/
+#cp -a ${cdir}/*.apk ${sdir}/
+
 cat ${cdir}/init.sh >> ${sdir}/etc/init.goldfish.sh
 umount ${sdir}
 rmdir ${sdir}
@@ -53,6 +58,7 @@ e2fsck -f ./opt/shashlik/android/system.img
 #resize2fs ./opt/shashlik/android/system.img 420M
 resize2fs ./opt/shashlik/android/system.img 500M
 
+rm -rf ./opt/shashlik/android/emulator-user.ini
 rm -rf ./opt/shashlik/bin/__pycache__
 rm -rf ./opt/shashlik/lib
 rm -rf ./opt/shashlik/lib64/libEGL_translator.so
@@ -60,7 +66,6 @@ rm -rf ./opt/shashlik/lib64/libGLES_CM_translator.so
 rm -rf ./opt/shashlik/lib64/libGLES_V2_translator.so
 rm -rf ./opt/shashlik/lib64/libOpenglRender.so
 rm -rf ./opt/shashlik/lib64/libut_rendercontrol_dec.so
-#rm -rf ./opt/shashlik/bin/aapt
 
 cp -a ${cdir}/shashlik.spec ./opt/shashlik/
 pushd ./opt

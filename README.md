@@ -7,14 +7,21 @@ http://www.shashlik.io/ (Original)
 - x86-based
 - Support Houdini Binary Translator [http://d.hatena.ne.jp/mjt/20161231/p1]
 - Support SD card
+- APKpure is pre-installed
 
 # Download
-- https://github.com/yui0/shashlik/releases
-- APKs
- - Download from http://beste-apps.chip.de/android/app/flappy-bird-apk-android-app,cxo.66885070/.
- - https://apkpure.com/
+- RPM [https://github.com/yui0/shashlik/releases]
+
+# Where is the APKs?
+- APKs [https://apkpure.com/]
+- Flappy Bird [http://beste-apps.chip.de/android/app/flappy-bird-apk-android-app,cxo.66885070/]
 
 # How to use
-- /opt/shashlik/bin/shashlik-install com.dotgears.flappybird.apk
-- /opt/shashlik/bin/shashlik-run com.dotgears.flappybird FlappyBirds
+- First download and install
+	# rpm -Uvh shashlik-*.x86_64.rpm
+	$ /opt/shashlik/bin/shashlik-run com.apkpure.aegon "APKPure"
+
+- Run Flappy Bird
+	$ /opt/shashlik/bin/shashlik-install com.dotgears.flappybird.apk
+	$ /opt/shashlik/bin/shashlik-run com.dotgears.flappybird FlappyBird
 
