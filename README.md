@@ -36,3 +36,8 @@ http://www.shashlik.io/ (Original)
 - APKs [https://apkpure.com/]
 - Flappy Bird [http://beste-apps.chip.de/android/app/flappy-bird-apk-android-app,cxo.66885070/]
 
+# Screenshots
+
+  ![APKpure](screenshots/apkpure.png)
+  ![APUS](screenshots/apus.png)
+
