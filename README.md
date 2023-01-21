@@ -2,12 +2,14 @@
 Android Applications on Real Linux
 
 http://www.shashlik.io/ (Original)
+https://github.com/shashlik
 
 # Features
+- Android 5.1.1
 - x86-based
 - Support Houdini Binary Translator [http://d.hatena.ne.jp/mjt/20161231/p1]
 - Support SD card
-- APKpure is pre-installed
+- F-Droid is pre-installed
 
 # Download
 - RPM [https://github.com/yui0/shashlik/releases]
@@ -41,3 +43,5 @@ http://www.shashlik.io/ (Original)
   ![APKpure](screenshots/apkpure.png)
   ![APUS](screenshots/apus.png)
 
+# How to check the APP name
+- https://www.virustotal.com/

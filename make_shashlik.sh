@@ -16,6 +16,7 @@ cp -a ${cdir}/adb ./opt/shashlik/bin
 cp -a ${cdir}/aapt ./opt/shashlik/bin
 cp -a ${cdir}/lib64 ./opt/shashlik/bin/
 cp -a ${cdir}/mksdcard ./opt/shashlik/bin
+cp -a ${cdir}/shashlik.sh ./opt/shashlik/bin
 cp -a ${cdir}/shashlik-install ./opt/shashlik/bin
 cp -a ${cdir}/shashlik-run ./opt/shashlik/bin
 cp -a ${cdir}/config.ini ./opt/shashlik/android
@@ -30,9 +31,15 @@ mount -oloop ${tdir}/opt/shashlik/android/system.img ${sdir}
 cp -a ./system/* ${sdir}/
 cp -a ${cdir}/build.prop ${sdir}/
 
-cp -a ${cdir}/com.apkpure.aegon ${sdir}/app/
-ln -s /system/app/com.apkpure.aegon/lib/x86/libjlibtorrent.so ${sdir}/lib/
+#cp -a ${cdir}/com.apkpure.aegon ${sdir}/app/
+#ln -s /system/app/com.apkpure.aegon/lib/x86/libjlibtorrent.so ${sdir}/lib/
 #cp -a ${cdir}/*.apk ${sdir}/
+
+cp -a ${cdir}/com.atomicadd.tinylauncher ${sdir}/app/
+cp -a ${cdir}/org.fdroid.fdroid ${sdir}/app/
+cp -a ${cdir}/com.android.vending ${sdir}/app/
+cp -a ${cdir}/com.google.android.gms ${sdir}/app/
+cp -a ${cdir}/com.google.android.gsf ${sdir}/app/
 
 cat ${cdir}/init.sh >> ${sdir}/etc/init.goldfish.sh
 umount ${sdir}
@@ -56,7 +63,8 @@ rm -rf ${rdir}
 rm ./opt/shashlik/android/userdata.img
 e2fsck -f ./opt/shashlik/android/system.img
 #resize2fs ./opt/shashlik/android/system.img 420M
-resize2fs ./opt/shashlik/android/system.img 500M
+#resize2fs ./opt/shashlik/android/system.img 500M
+resize2fs ./opt/shashlik/android/system.img 600M
 
 rm -rf ./opt/shashlik/android/emulator-user.ini
 rm -rf ./opt/shashlik/bin/__pycache__
