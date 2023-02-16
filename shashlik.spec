@@ -25,6 +25,7 @@ rm -rf $RPM_BUILD_ROOT
 
 mkdir -p $RPM_BUILD_ROOT{%{DISTDIR}/shashlik,%{_bindir}}
 cp -a shashlik/* $RPM_BUILD_ROOT%{DISTDIR}/shashlik
+ln -s /opt/shashlik/bin/shashlik.sh $RPM_BUILD_ROOT/usr/bin/shashlik
 rm $RPM_BUILD_ROOT%{DISTDIR}/shashlik/*.spec
 
 %clean
@@ -35,6 +36,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-, root, root, 0755)
 /opt/shashlik/
 #/usr/share/applications/
+/usr/bin/shashlik
 
 
 %changelog

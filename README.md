@@ -1,8 +1,17 @@
 # shashlik
+
+![GitHub Repo stars](https://img.shields.io/github/stars/yui0/shashlik?style=social)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/yui0/shashlik)
+![Lines of code](https://img.shields.io/tokei/lines/github/yui0/shashlik)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/yui0/shashlik)](https://github.com/yui0/shashlik/releases)
+
 Android Applications on Real Linux
 
-http://www.shashlik.io/ (Original)
-https://github.com/shashlik
+Original: http://www.shashlik.io/
+
+Source: https://github.com/shashlik
+
+The new project is [here](https://github.com/yui0/berry-os)!
 
 # Features
 - Android 5.1.1
@@ -12,13 +21,21 @@ https://github.com/shashlik
 - F-Droid is pre-installed
 
 # Download
-- RPM [https://github.com/yui0/shashlik/releases]
+
+- [RPM, Appimage](https://github.com/yui0/shashlik/releases)
+
+# How to build
+
+```bash
+$ sh make_shashlik.sh
+```
 
 # How to use
 - First install and run
 
 ```bash
 	# rpm -Uvh shashlik-*.x86_64.rpm
+	$ /opt/shashlik/bin/shashlik-run com.atomicadd.tinylauncher "Desktop"
 	$ /opt/shashlik/bin/shashlik-run com.apkpure.aegon "APKPure"
 ```
 
@@ -28,6 +45,11 @@ https://github.com/shashlik
 	$ /opt/shashlik/bin/shashlik-install com.dotgears.flappybird.apk
 	$ /opt/shashlik/bin/shashlik-run com.dotgears.flappybird FlappyBird
 ```
+
+## How to uninstall
+
+- sudo rpm -e shashlik*rpm
+- rm -rf ~/.local/share/shashlik
 
 # Switching to landscape mode
 - ctrl+fn+F11 on Mac
@@ -42,6 +64,7 @@ https://github.com/shashlik
 
   ![APKpure](screenshots/apkpure.png)
   ![APUS](screenshots/apus.png)
+  ![Desktop](screenshots/desktop.png)
 
 # How to check the APP name
 - https://www.virustotal.com/

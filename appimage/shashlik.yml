@@ -1,0 +1,33 @@
+app: shashlik
+
+ingredients:
+  packages:
+  dist: kinetic
+  sources:
+    - deb http://security.ubuntu.com/ubuntu kinetic-security main
+    - deb http://security.ubuntu.com/ubuntu kinetic main
+script:
+  - cp -a /tmp/shashlik/opt .
+  - touch shashlik.svg # FIXME
+  - cat > shashlik.desktop <<\EOF
+  - [Desktop Entry]
+  - Type=Application
+  - Terminal=true
+  - Name=shashlik
+  - Exec=./opt/shashlik/bin/shashlik-run com.atomicadd.tinylauncher "Desktop"
+  - Categories=Development;
+  - Icon=shashlik
+  - EOF
+  - # ADD AppRun
+  - cat > ./AppRun <<\EOF
+  - #!/bin/sh
+  - HERE=$(dirname $(readlink -f "${0}"))
+  - PKG_DIR=$HERE/opt
+  - cd ${HERE}/opt
+  - export LD_LIBRARY_PATH=${HERE}/usr/lib:${HERE}/usr/lib/x86_64-linux-gnu/:${HERE}/lib/x86_64-linux-gnu/:$LD_LIBRARY_PATH
+  - ${HERE}/opt/shashlik/bin/shashlik-run com.atomicadd.tinylauncher "Desktop"
+  - EOF
+  - chmod a+x ./AppRun
+  - # Set Version
+  - echo "0.9.3" > ../VERSION
+  - find ./opt/ -type f -exec sed -i -e "s@/opt/@././@g" {} \;

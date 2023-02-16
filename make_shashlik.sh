@@ -1,5 +1,5 @@
 #!/bin/sh
-# ©2017 YUICHIRO NAKADA
+# ©2017,2023 YUICHIRO NAKADA
 
 ver=0.9.3
 tdir=/tmp/shashlik
@@ -65,6 +65,10 @@ e2fsck -f ./opt/shashlik/android/system.img
 #resize2fs ./opt/shashlik/android/system.img 420M
 #resize2fs ./opt/shashlik/android/system.img 500M
 resize2fs ./opt/shashlik/android/system.img 600M
+
+popd
+sh make_appimage.sh
+pushd ${tdir}
 
 rm -rf ./opt/shashlik/android/emulator-user.ini
 rm -rf ./opt/shashlik/bin/__pycache__
