@@ -11,7 +11,7 @@ Original: http://www.shashlik.io/
 
 Source: https://github.com/shashlik
 
-The new project is [here](https://github.com/yui0/berry-os)!
+**The new project is [here](https://github.com/yui0/berry-os)!**
 
 # Features
 - Android 5.1.1
